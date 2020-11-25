@@ -1,0 +1,166 @@
+{% extends 'dashboard/dashboard-main.html' %}
+{% load static %}
+
+{% block dashboard-content %}
+
+    {% if user.is_superuser or user.is_doctor %}
+
+        {#container code starts here#}
+        <div class="container">
+            {#Navbar code starts here#}
+            <nav class="navbar">
+                <div class="nav_icons" onclick="toggleSidebar()">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="navbar__left">
+                    <a class="active_link" href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="navbar__right">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-clock-o"></i>
+                    </a>
+                    <a href="#">
+                        <img width="30" src="{% static '/images/avatar.svg' %}" alt="avatar.png">
+                    </a>
+                </div>
+            </nav>
+            {#Navbar code ends here#}
+            <main class="main">
+                <div class="main__container">
+
+                    {#greeting code starts here#}
+                    <div class="main__title">
+                        <img src="{% static '/images/hello.svg' %}" alt="hello.png">
+                        <div class="main__greeting">
+                            <h1>Hello {{ user.first_name }}</h1>
+                            <p>Welcome to your Dashboard</p>
+                        </div>
+                    </div>
+
+                    {#greeting code ends here#}
+
+                    {#Tiles code starts here#}
+                    <div class="main_cards"></div>
+
+                    {#                    Tiles code ends here#}
+
+                    <div class="outer-div-profile-view">
+                        <div class="appoint-view">
+
+                            <div class="heading-banner">
+                                <div class="heading">
+                                    <i class="fas fa-user fa-2x text-lightblue"></i>
+                                    <h2>View My Profile</h2>
+                                </div>
+                            </div>
+
+                            <div class="form-container">
+                                <div class="left-box">
+                                    <nav>
+                                        <a onclick="tabs(0)" href="#" class="tab active">
+                                            <i class="fa fa-user"></i>
+                                        </a>
+
+                                        {#                                        <a onclick="tabs(1)" href="#" class="tab">#}
+                                        {#                                            <i class="fa fa-credit-card"></i>#}
+                                        {#                                        </a>#}
+                                        {##}
+                                        {#                                        <a onclick="tabs(2)" href="#" class="tab">#}
+                                        {#                                            <i class="fa fa-tv"></i>#}
+                                        {#                                        </a>#}
+                                        {##}
+                                        {#                                        <a onclick="tabs(3)" href="#" class="tab">#}
+                                        {#                                            <i class="fa fa-cog "></i>#}
+                                        {#                                        </a>#}
+                                    </nav>
+                                </div>
+
+                                <div class="right-box">
+                                    <div class="profile tabShow">
+
+                                        <h1>Personal Information</h1>
+
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            {{ forms.as_p }}
+                                            <button type="submit" class="btn">Update</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            {#sidebar code starts here#}
+            <div id="sidebar">
+                <div class="sidebar__title">
+                    <div class="sidebar__img">
+                        <img src="{% static '/images/logo.png' %}" alt="user_logo" style="padding: 5px 0 0 0 ;">
+                        <h1>Hi, {{ user.first_name }}</h1>
+                    </div>
+                    <i class="fa fa-times" id="sidebarIcons" onclick="closeSidebar()"></i>
+                </div>
+
+                <div class="sidebar__menu">
+
+                    <div class="sidebar__link ">
+                        <i class="fa fa-home "></i>
+                        <a href="{% url 'doctor_dashboard' %}">Dashboard</a>
+                    </div>
+
+                    <h2>Profile</h2>
+
+                    <div class="sidebar__link active_menu_links">
+                        <i class="fas fa-user"></i>
+                        <a href="{% url 'doctor_profile' %}">Main Profile</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-calendar-check"></i>
+                        <a href="{% url 'doctor_appointments_view' %}">View My Appointments</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-stethoscope"></i>
+                        <a href="#">Self Diagnose</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-briefcase-medical"></i>
+                        <a href="#">MedScan</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <a href="{% url 'doctor_prescription_give' %}">Give Prescription</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <a href="{% url 'doctor_prescription_view' %}">View Prescription</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-blog"></i>
+                        <a href="{% url 'create_blogs' %}">Blogs</a>
+                    </div>
+                    <div class="sidebar__logout">
+                        <i class="fa fa-power-off"></i>
+                        <a href="{% url 'logout' %}">Log out</a>
+                    </div>
+                </div>
+            </div>
+            {#sidebar code ends here#}
+        </div>
+        {#container code ends here#}
+    {% else %}
+        <script>
+            alert('Unauthorised Access!\nyou can not visit this page.');
+            window.location = ('{% url 'home' %}');
+        </script>
+    {% endif %}
+{% endblock %}

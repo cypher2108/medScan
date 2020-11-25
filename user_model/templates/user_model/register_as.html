@@ -1,0 +1,59 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <section class="section-1">
+        <div class="text">
+            <h1>Sign Up here!</h1>
+        </div>
+    </section>
+
+    <section class="section-2">
+        <ul class="seperation-wrapper">
+            <li class="cards">
+                <div class="button-wrapper">
+                    <h2>For Patients</h2>
+                    <br>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam ullam quam eveniet dolores,
+                        harum
+                        obcaecati ducimus, cupiditate tenetur amet dolorum similique non, aperiam dolore error modi
+                        ipsam ipsum
+                        corporis.</p>
+                    <button onclick="Redirect_patient_signup();" > Patient Sign Up</button>
+
+                    <script>
+                        function Redirect_patient_signup(){
+                            window.location = ('{% url 'patient_register' %}');
+                        }
+                    </script>
+
+
+                    <p>Already signed up? <a href="#">Login</a></p>
+                </div>
+            </li>
+
+            <li class="cards">
+                <div class="button-wrapper">
+                    <h2>For Doctors</h2>
+                    <br>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque architecto recusandae animi hic
+                        accusamus
+                        aspernatur nisi cupiditate debitis adipisci, maiores deleniti fugit, quis, minus delectus! Minus
+                        a quam
+                        perferendis asperiores.</p>
+                    <button onclick="Redirect_doctor_signup();" >Doctor Sign Up</button>
+
+                    <script>
+                        function Redirect_doctor_signup(){
+                            window.location = ('{% url 'doctor_register' %}');
+                        }
+                    </script>
+
+                    <p>Already have an account? <a href="#">Login</a></p>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+{% endblock %}

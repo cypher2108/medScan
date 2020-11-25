@@ -1,0 +1,58 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <section class="section-1">
+        <div class="text">
+            <h1>Login here!</h1>
+        </div>
+    </section>
+
+    <section class="section-2">
+        <ul class="seperation-wrapper">
+            <li class="cards">
+                <div class="button-wrapper">
+                    <h2>For Patients</h2>
+                    <br>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam ullam quam eveniet dolores,
+                        harum
+                        obcaecati ducimus, cupiditate tenetur amet dolorum similique non, aperiam dolore error modi
+                        ipsam ipsum
+                        corporis.</p>
+                    <button onclick="Redirect_patient();"> Patient Login</button>
+
+                    <script>
+                        function Redirect_patient(){
+                            window.location = ('{% url 'patient_login' %}');
+                        }
+                    </script>
+
+                    <p>Don't have an account? <a href="{% url 'patient_register' %}">Sign up</a></p>
+                </div>
+            </li>
+
+            <li class="cards">
+                <div class="button-wrapper">
+                    <h2>For Doctors</h2>
+                    <br>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque architecto recusandae animi hic
+                        accusamus
+                        aspernatur nisi cupiditate debitis adipisci, maiores deleniti fugit, quis, minus delectus! Minus
+                        a quam
+                        perferendis asperiores.</p>
+                    <button onclick= "Redirect_doctor();">Doctor Login</button>
+
+                    <script>
+                        function Redirect_doctor(){
+                            window.location = ('{% url 'doctor_login' %}');
+                        }
+                    </script>
+
+                    <p>Don't have an account? <a href="{% url 'contact' %}">Contact sales</a> or <a href="{% url 'doctor_register' %}">Get free trial</a>.</p>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+{% endblock %}

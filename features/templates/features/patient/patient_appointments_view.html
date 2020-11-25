@@ -1,0 +1,158 @@
+{% extends 'dashboard/dashboard-main.html' %}
+{% load static %}
+
+{% block dashboard-content %}
+
+    {% if user.is_superuser or user.is_patient %}
+
+
+        <div class="container">
+
+            <nav class="navbar">
+                <div class="nav_icons" onclick="toggleSidebar()">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="navbar__left">
+                    <a class="active_link" href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="navbar__right">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-clock-o"></i>
+                    </a>
+                    <a href="#">
+                        <img width="30" src="{% static '/images/avatar.svg' %}" alt="avatar.png">
+                    </a>
+                </div>
+            </nav>
+
+            <main class="main">
+                <div class="main__container">
+
+                    {#                    title bar presents here#}
+                    <div class="main__title">
+                        <img src="{% static '/images/hello.svg' %}" alt="hello.png">
+                        <div class="main__greeting">
+                            <h1>Hello {{ user.first_name }}</h1>
+                            <p>Welcome to your Dashboard</p>
+                        </div>
+                    </div>
+
+                    <div class="main_cards"></div>
+
+                    <div class="outter-div-view">
+                        <div class="appoint-view">
+
+                            <div class="heading-banner">
+                                <div class="heading">
+                                    <i class="fa fa-calendar fa-2x text-red"></i>
+                                    <h2>View My Appointments</h2>
+                                </div>
+                            </div>
+
+                            <table id="appointment-table">
+                                <thead>
+                                <tr>
+                                    <th>Doctor Name</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for i in appointment %}
+                                    <tr>
+                                        {% if i.patient_name.id == user.id %}
+                                            <td>{{ i.doctor_name }}</td>
+                                            <td>{{ i.date }}</td>
+                                            <td>{{ i.time }}</td>
+                                            <td>{{ i.status }}</td>
+                                            <td><a href="#" onclick="return confirm('Are you really want to Delete?')">
+                                                <button class="delete-btn">Delete</button>
+                                            </a>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+
+            {#sidebar code starts here#}
+            <div id="sidebar">
+                <div class="sidebar__title">
+                    <div class="sidebar__img">
+                        <img src="{% static '/images/logo.png' %}" alt="user_logo" style="padding: 5px 0 0 0 ;">
+                        <h1>Hi, {{ user.first_name }}</h1>
+                    </div>
+                    <i class="fa fa-times" id="sidebarIcons" onclick="closeSidebar()"></i>
+                </div>
+
+                <div class="sidebar__menu">
+
+                    <div class="sidebar__link">
+                        <i class="fa fa-home "></i>
+                        <a href="{% url 'patient_dashboard' %}">Dashboard</a>
+                    </div>
+
+                    <h2>Profile</h2>
+
+                    <div class="sidebar__link">
+                        <i class="fas fa-user"></i>
+                        <a href="{% url 'patient_profile' %}">Main Profile</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-calendar-check"></i>
+                        <a href="{% url 'patient_appointments_add' %}">Make My Appointments</a>
+                    </div>
+                    <div class="sidebar__link active_menu_links">
+                        <i class="fas fa-calendar-check"></i>
+                        <a href="{% url 'patient_appointments_view' %}">View My Appointments</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-stethoscope"></i>
+                        <a href="#">Self Diagnose</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-briefcase-medical"></i>
+                        <a href="{% url 'patient_medscan' %}">MedScan</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <a href="{% url 'patient_prescriptions' %}">Prescription</a>
+                    </div>
+                    <div class="sidebar__link">
+                        <i class="fas fa-blog"></i>
+                        <a href="{% url 'patient_blogs' %}">Blogs</a>
+                    </div>
+                    <div class="sidebar__logout">
+                        <i class="fa fa-power-off"></i>
+                        <a href="{% url 'logout' %}">Log out</a>
+                    </div>
+                </div>
+            </div>
+            {#sidebar code ends here#}
+        </div>
+
+        <script src="{% static '/css/dashboard.js' %}"></script>
+
+    {% else %}
+        <script>
+            alert('Unauthorised Access!\nyou can not visit this page.');
+            window.location = ('{% url 'home' %}');
+        </script>
+    {% endif %}
+
+{% endblock %}
