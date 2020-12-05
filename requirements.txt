@@ -1,0 +1,6 @@
+requirements:
+	django
+	keras
+	tensorFlow
+	pandas
+	matplotlib
