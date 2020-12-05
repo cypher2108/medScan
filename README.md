@@ -5,7 +5,7 @@ user and predict on the based on previous learning that how many chances are lik
 disease. it also provides other functionality to its user like fix an appointment to a doctor and take prescriptions and
 also provide micro-blogging kinda stuffs to its user which is written by doctors.
 
-#Features
+# Features
 - [X] user can make changes in their profile.
 - [X] patients can request Appointments to their doctors.
 - [x] patients can take prescriptions from their doctors .
